@@ -1,3 +1,5 @@
+import java.util.*;
+
 class TreeNode{
     int value;
     TreeNode left;
@@ -12,14 +14,17 @@ class TreeNode{
 }
 
 public class BinaryTree{
-    TreeNode root;
-    public static void inOrderTrav(TreeNode treeRoot){
-        if (treeRoot == null){
-            return;
+    public TreeNode root;
+
+    static List<Integer> results = new ArrayList<>();
+    public static List<Integer> inOrderTravList(TreeNode treeRoot){
+        if (treeRoot != null){
+            inOrderTravList(treeRoot.left);
+            // System.out.print(" " + treeRoot.value + " ");
+            results.add(treeRoot.value);
+            inOrderTravList(treeRoot.right);
         }
-        inOrderTrav(treeRoot.left);
-        System.out.print(" " + treeRoot.value + " ");
-        inOrderTrav(treeRoot.right);
+        return results;
     }
 
     public static void main(String[] arg){
@@ -30,7 +35,16 @@ public class BinaryTree{
         tree1.root.left.left = new TreeNode(4);
         tree1.root.left.right = new TreeNode(5);
 
-        System.out.println("In-order traversal of the tree:");
-        inOrderTrav(tree1.root);
+        /*
+
+                        1
+                     /    \
+                   2        3
+                 /   \
+                4     5
+
+         */
+
+        System.out.println("In-order traversal:" + (inOrderTravList(tree1.root)) );
     }
 }
